@@ -1,28 +1,33 @@
 {
   "name": "layman",
-  "version": "1.0.0",
-  "description": "A modern web application built with cutting-edge technologies",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "echo 'Development server starting...'",
-    "build": "echo 'Building project...'",
-    "test": "echo 'Running tests...'",
-    "start": "echo 'Starting production server...'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [
-    "web",
-    "application",
-    "modern",
-    "javascript"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/layman.git"
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "15.2.4",
+    "@types/node": "^24.3.0",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "eslint": "^8",
+    "eslint-config-next": "15.2.4",
+    "openai": "^5.16.0",
+    "lucide-react": "^0.542.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1",
+    "framer-motion": "^12.23.12"
   },
-  "bugs": {
-    "url": "https://github.com/yourusername/layman/issues"
-  },
-  "homepage": "https://github.com/yourusername/layman#readme"
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0"
+  }
 }
