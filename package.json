@@ -1,0 +1,28 @@
+{
+  "name": "layman",
+  "version": "1.0.0",
+  "description": "A modern web application built with cutting-edge technologies",
+  "main": "index.js",
+  "scripts": {
+    "dev": "echo 'Development server starting...'",
+    "build": "echo 'Building project...'",
+    "test": "echo 'Running tests...'",
+    "start": "echo 'Starting production server...'"
+  },
+  "keywords": [
+    "web",
+    "application",
+    "modern",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/layman.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/layman/issues"
+  },
+  "homepage": "https://github.com/yourusername/layman#readme"
+}
