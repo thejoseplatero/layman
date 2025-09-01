@@ -227,7 +227,7 @@ export default function Home() {
             >
               <MessageSquare className="w-5 h-5 text-white" />
             </motion.div>
-            <h1 className="text-2xl font-bold text-white">Layman</h1>
+            <h1 className="text-2xl font-display text-white">Layman</h1>
           </div>
         </div>
       </header>
@@ -241,7 +241,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+            <h1 className="text-5xl md:text-7xl font-display text-white mb-6 tracking-tight">
               Build something{" "}
               <motion.span 
                 animate={{ rotate: [0, 10, -10, 0] }}
@@ -252,7 +252,7 @@ export default function Home() {
               </motion.span>{" "}
               Layman
             </h1>
-            <p className="text-xl text-white/80 font-medium">
+            <p className="text-xl md:text-2xl text-white/90 font-body max-w-2xl">
               Create apps and websites by chatting with AI
             </p>
           </motion.div>
@@ -265,13 +265,14 @@ export default function Home() {
             className="hero-container p-8 mb-8"
           >
             <form onSubmit={handleSubmit} className="relative">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 {/* Source buttons - inline */}
                 <div className="flex gap-2">
                   <motion.label 
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, y: -1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="cursor-pointer p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+                    className="cursor-pointer p-4 rounded-2xl source-button flex items-center justify-center"
+                    title="Upload files"
                   >
                     <Upload className="w-5 h-5 text-white" />
                     <input
@@ -285,34 +286,36 @@ export default function Home() {
                   
                   <motion.button
                     type="button"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, y: -1 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const url = prompt("Enter GitHub repository URL:");
-                      if (url) {
+                      const url = prompt("🔗 Enter GitHub repository URL:\n\nExample: https://github.com/user/repo");
+                      if (url && url.trim()) {
                         setGithubUrl(url);
                         handleGithubSubmit({ preventDefault: () => {} } as React.FormEvent);
                       }
                     }}
-                    className="p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+                    className="p-4 rounded-2xl source-button flex items-center justify-center"
                     disabled={isLoading}
+                    title="Connect GitHub repository"
                   >
                     <Github className="w-5 h-5 text-white" />
                   </motion.button>
 
                   <motion.button
                     type="button"
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.05, y: -1 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => {
-                      const url = prompt("Enter website URL:");
-                      if (url) {
+                      const url = prompt("🌐 Enter website URL:\n\nExample: https://docs.example.com");
+                      if (url && url.trim()) {
                         setWebsiteUrl(url);
                         handleUrlSubmit({ preventDefault: () => {} } as React.FormEvent);
                       }
                     }}
-                    className="p-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-200"
+                    className="p-4 rounded-2xl source-button flex items-center justify-center"
                     disabled={isLoading}
+                    title="Add website content"
                   >
                     <Link className="w-5 h-5 text-white" />
                   </motion.button>
@@ -320,26 +323,46 @@ export default function Home() {
 
                 {/* Main input */}
                 <div className="flex-1 relative">
-                  <input
+                  <motion.input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask Layman to create a landing page for..."
-                    className="w-full px-6 py-4 rounded-2xl bg-white/90 backdrop-blur-sm border border-white/20 text-gray-900 font-medium placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 disabled:opacity-60 text-lg"
+                    className="w-full px-6 py-4 rounded-2xl lovable-input text-gray-900 font-body placeholder-gray-500 focus:outline-none text-lg"
                     disabled={isLoading}
+                    whileFocus={{ scale: 1.01 }}
                   />
+                  {input && (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.8, y: 5 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                    >
+                      <div className="text-xs font-mono font-medium px-3 py-1 rounded-full bg-white/20 text-white/70 backdrop-blur-sm">
+                        Press ↵
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
 
                 {/* Submit button */}
                 <motion.button
                   type="submit"
                   disabled={!input.trim() || isLoading}
-                  whileHover={{ scale: !input.trim() || isLoading ? 1 : 1.05 }}
+                  whileHover={{ 
+                    scale: !input.trim() || isLoading ? 1 : 1.05,
+                    y: !input.trim() || isLoading ? 0 : -1
+                  }}
                   whileTap={{ scale: !input.trim() || isLoading ? 1 : 0.95 }}
-                  className="px-6 py-4 rounded-2xl bg-white text-gray-900 font-semibold transition-all duration-200 flex items-center justify-center min-w-[60px] disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg"
+                  className="px-6 py-4 rounded-2xl submit-button font-display flex items-center justify-center min-w-[60px]"
                 >
                   {isLoading ? (
-                    <Loader2 className="w-6 h-6 animate-spin" />
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Loader2 className="w-6 h-6" />
+                    </motion.div>
                   ) : (
                     <Send className="w-6 h-6" />
                   )}
@@ -352,7 +375,7 @@ export default function Home() {
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 flex items-center justify-center gap-2 text-white/70 text-sm"
+                className="mt-4 flex items-center justify-center gap-2 text-white/70 text-sm font-body"
               >
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                 {sources.length} source{sources.length !== 1 ? 's' : ''} connected
@@ -364,7 +387,7 @@ export default function Home() {
               <motion.div 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-4 flex items-center justify-center gap-2 text-white/70 text-sm"
+                className="mt-4 flex items-center justify-center gap-2 text-white/70 text-sm font-body"
               >
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Loading source...
