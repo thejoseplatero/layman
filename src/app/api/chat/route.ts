@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,11 +10,11 @@ export async function POST(request: NextRequest) {
     // Build context from available sources
     const sourceContext = sources.length > 0 
       ? `Available sources:\n${sources.map((source: any) => 
-          `- ${source.name} (${source.type}): ${source.content?.slice(0, 500)}...`
-        ).join('\n')}\n\n`
+          `- ${source.name} (${source.type}): ${source.content}`
+        ).join('\n\n')}\n\n`
       : '';
     
-    const systemPrompt = `You are Layman, a helpful AI assistant that helps non-technical users understand how their applications work. 
+    const systemPrompt = `You are neoneo, a helpful AI assistant that helps non-technical users understand how their applications work. 
 
 Your role is to:
 1. Ask clarifying questions when users give vague requests
@@ -25,7 +23,7 @@ Your role is to:
 4. Help users understand flows, dependencies, and system architecture
 5. Provide specific, actionable insights based on the codebase
 
-${sources.length > 0 ? 'You have access to source code and should reference it in your responses with specific citations.' : 'When sources are available, always cite them in your responses.'}
+${sources.length > 0 ? `You have full access to the source code from ${sources[0].name} and should reference it in your responses with specific citations to files, functions, and code sections. Use the complete repository content to provide detailed, accurate answers.` : 'When sources are available, always cite them in your responses.'}
 
 Always be conversational, helpful, and ask follow-up questions to better understand what the user needs.`;
 
@@ -43,17 +41,14 @@ ${sources.length > 0
 
 Format your response as a natural conversation.`;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userPrompt }
-      ],
-      max_tokens: 500,
-      temperature: 0.7,
-    });
+    // Get the generative model
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-    const response = completion.choices[0]?.message?.content || "I'm sorry, I couldn't generate a response. Could you try rephrasing your question?";
+    // Create the full prompt combining system and user prompts
+    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+
+    const result = await model.generateContent(fullPrompt);
+    const response = result.response.text() || "I'm sorry, I couldn't generate a response. Could you try rephrasing your question?";
 
     // Extract potential citations from the response (simple implementation)
     const citations: string[] = [];

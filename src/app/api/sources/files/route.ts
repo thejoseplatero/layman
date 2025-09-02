@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
         const processed = await processFile(file);
         processedSources.push(processed);
       } catch (error) {
-        console.warn(`Failed to process file ${file.name}:`, error.message);
+        console.warn(`Failed to process file ${file.name}:`, error instanceof Error ? error.message : String(error));
       }
     }
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('File processing error:', error);
     return NextResponse.json(
-      { error: `Failed to process files: ${error.message}` },
+      { error: `Failed to process files: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }

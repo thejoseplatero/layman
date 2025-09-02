@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('GitHub API error:', error);
     return NextResponse.json(
-      { error: `Failed to fetch GitHub repository: ${error.message}` },
+      { error: `Failed to fetch GitHub repository: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }
@@ -145,7 +145,7 @@ async function fetchGitHubRepo(owner: string, repo: string) {
             allContent += '\n\n';
           }
         } catch (e) {
-          console.warn(`Failed to fetch ${file.path}:`, e.message);
+          console.warn(`Failed to fetch ${file.path}:`, e instanceof Error ? e.message : String(e));
         }
       }
     }
@@ -163,6 +163,6 @@ Key files: ${files.map(f => f.name).join(', ')}`;
     };
     
   } catch (error) {
-    throw new Error(`GitHub API error: ${error.message}`);
+    throw new Error(`GitHub API error: ${error instanceof Error ? error.message : String(error)}`);
   }
 }

@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('URL fetch error:', error);
     return NextResponse.json(
-      { error: `Failed to fetch URL content: ${error.message}` },
+      { error: `Failed to fetch URL content: ${error instanceof Error ? error.message : String(error)}` },
       { status: 500 }
     );
   }
