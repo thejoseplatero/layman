@@ -14,10 +14,14 @@ export default function Home() {
   const [sources, setSources] = useState<any[]>([]);
   const [isLoadingSource, setIsLoadingSource] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Array<{
+    id: number;
+    type: 'assistant' | 'user';
+    content: string;
+  }>>([
     {
       id: 1,
-      type: 'assistant' as const,
+      type: 'assistant',
       content: 'Hi! I\'m neoneo, your AI assistant. Ask me anything about your app, code, or technical questions.',
     },
   ]);
