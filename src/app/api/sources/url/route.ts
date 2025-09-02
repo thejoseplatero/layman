@@ -59,7 +59,7 @@ function getDomainFromUrl(url: string): string {
 async function fetchUrlContent(url: string) {
   const response = await fetch(url, {
     headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; Layman-Bot/1.0)',
+      'User-Agent': 'Mozilla/5.0 (compatible; neoneo-Bot/1.0)',
     },
   });
 

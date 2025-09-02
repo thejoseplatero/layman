@@ -1,10 +1,10 @@
-# Layman - Talk to Your App
+# neoneo - Talk to Your App
 
 A chat-first interface that lets anyone talk to their app. Understand flows, APIs, logic, and dependencies in plain language.
 
 ## Vision
 
-Layman is a chat-first interface that lets anyone talk to their app. It feels like ChatGPT but is specifically designed to help non-technical users (PMs, designers, execs, support) understand how applications work by:
+neoneo is a chat-first interface that lets anyone talk to their app. It feels like ChatGPT but is specifically designed to help non-technical users (PMs, designers, execs, support) understand how applications work by:
 
 - Understanding flows, APIs, logic, and dependencies
 - Diagnosing bugs, inputs/outputs, and error states
@@ -41,8 +41,8 @@ Layman is a chat-first interface that lets anyone talk to their app. It feels li
 
 1. Clone the repository
 ```bash
-git clone https://github.com/thejoseplatero/layman.git
-cd layman
+git clone https://github.com/thejoseplatero/neoneo.git
+cd neoneo
 ```
 
 2. Install dependencies
